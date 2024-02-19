@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import SidebarLinkGroup from './SidebarLinkGroup';
 import Logo from '../../images/logo/logo.svg';
+import SidebarLinkGroup from './SidebarLinkGroup';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -107,8 +107,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <NavLink
                   to="/"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('dashboard') &&
-                    'bg-graydark dark:bg-meta-4'
+                    pathname === '/' && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
                   <svg
@@ -197,13 +196,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               {/* <!-- Menu Item Manage --> */}
 
-              {/* <!-- Menu Item ordersPage --> */}
+              {/* <!-- Menu Item orders  --> */}
               <li>
                 <NavLink
-                  to="/ordersPage"
+                  to="/orders"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('ordersPage') &&
-                    'bg-graydark dark:bg-meta-4'
+                    pathname.includes('orders') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
                   <svg
@@ -222,7 +220,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Orders
                 </NavLink>
               </li>
-              {/* <!-- Menu Item ordersPage --> */}
+              {/* <!-- Menu Item orders  --> */}
             </ul>
           </div>
 
@@ -236,7 +234,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Auth Pages --> */}
               <SidebarLinkGroup
                 activeCondition={
-                  pathname === '/orders' || pathname.includes('orders')
+                  pathname === '/report' || pathname.includes('report')
                 }
               >
                 {(handleClick, open) => {
@@ -245,8 +243,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       <NavLink
                         to="#"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          (pathname === '/orders' ||
-                            pathname.includes('orders')) &&
+                          (pathname === '/report' ||
+                            pathname.includes('report')) &&
                           'bg-graydark dark:bg-meta-4'
                         }`}
                         onClick={(e) => {
@@ -313,24 +311,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <NavLink
-                              to="/orders"
-                              className={({ isActive }) =>
-                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
-                                (isActive && '!text-white')
-                              }
-                            >
-                              Orders
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink
-                              to="/completedOrders"
+                              to="/report/completedOrders"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                 (isActive && '!text-white')
                               }
                             >
                               Completed orders
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/report/orders"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                (isActive && '!text-white')
+                              }
+                            >
+                              Orders
                             </NavLink>
                           </li>
                         </ul>

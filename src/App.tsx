@@ -55,15 +55,7 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/ordersPage"
-          element={
-            <>
-              <PageTitle title="orders" />
-              <OrdersPage />
-            </>
-          }
-        />
+
         <Route
           path="/profile"
           element={
@@ -73,9 +65,18 @@ function App() {
             </>
           }
         />
-
         <Route
           path="/orders"
+          element={
+            <>
+              <PageTitle title="Orders" />
+              <OrdersPage />
+            </>
+          }
+        />
+        {/* reports */}
+        <Route
+          path="report/orders"
           element={
             <>
               <PageTitle title="Orders" />
@@ -84,7 +85,7 @@ function App() {
           }
         />
         <Route
-          path="/completedOrders"
+          path="report/completedOrders"
           element={
             <>
               <PageTitle title="Completed orders" />
