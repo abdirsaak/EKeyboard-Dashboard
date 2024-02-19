@@ -53,7 +53,7 @@ const SignIn: React.FC = () => {
 
             <span className="mt-15 inline-block">
               <img
-                src="/keyboard.jpg "
+                src="/images/keyboard.jpg "
                 alt="Keyboard"
                 className="dark:rounded-2xl"
               />

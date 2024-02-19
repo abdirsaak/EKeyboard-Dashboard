@@ -3,13 +3,13 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
-import CompletedOrders from './pages/Report/CompletedOrders';
-import Orders from './pages/Report/Orders';
-import SignIn from './pages/Authentication/SignIn';
-import ECommerce from './pages/Dashboard/ECommerce';
-import Manage from './pages/Manage';
+import CompletedOrders from './pages/Report/components/CompletedOrders';
+import Orders from './pages/Report/components/Orders';
+import SignIn from './pages/Authentication/components/SignIn';
+import Manage from './pages/manageProducts/components/Manage';
 import Profile from './pages/Profile';
-import OrdersPage from './pages/OrdersPage/OrdersPage';
+import OrdersPage from './pages/OrdersPage/components/OrdersPage';
+import Dashbooard from './pages/Dashboard/components/Dashbooard';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,7 +42,7 @@ function App() {
           element={
             <>
               <PageTitle title="Dashboard" />
-              <ECommerce />
+              <Dashbooard />
             </>
           }
         />
