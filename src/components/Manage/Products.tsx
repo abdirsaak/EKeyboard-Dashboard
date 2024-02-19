@@ -8,38 +8,38 @@ const productData: Product[] = [
   {
     image: ProductOne,
     name: 'Apple Watch Series 7',
-    category: 'Electronics',
     price: 296,
+    stock: 'ss',
     sold: 22,
     profit: 45,
   },
   {
     image: ProductTwo,
     name: 'Macbook Pro M1',
-    category: 'Electronics',
     price: 546,
+    stock: 'Electronics',
     sold: 12,
     profit: 125,
   },
   {
     image: ProductThree,
     name: 'Dell Inspiron 15',
-    category: 'Electronics',
     price: 443,
+    stock: 'Electronics',
     sold: 64,
     profit: 247,
   },
   {
     image: ProductFour,
     name: 'HP Probook 450',
-    category: 'Electronics',
     price: 499,
+    stock: 'Electronics',
     sold: 72,
     profit: 103,
   },
 ];
 
-const TableTwo = () => {
+const Products = () => {
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark z-99">
       <div className="py-6 px-4 md:px-6 xl:px-7.5">
@@ -52,17 +52,18 @@ const TableTwo = () => {
         <div className="col-span-3 flex items-center">
           <p className="font-medium">Product Name</p>
         </div>
-        <div className="col-span-2 hidden items-center sm:flex">
-          <p className="font-medium">Category</p>
-        </div>
         <div className="col-span-1 flex items-center">
           <p className="font-medium">Price</p>
+        </div>
+      
+        <div className="col-span-2 hidden items-center sm:flex">
+          <p className="font-medium">stock</p>
         </div>
         <div className="col-span-1 flex items-center">
           <p className="font-medium">Sold</p>
         </div>
         <div className="col-span-1 flex items-center">
-          <p className="font-medium">Profit</p>
+          <p className="font-medium">Stars</p>
         </div>
       </div>
 
@@ -81,14 +82,14 @@ const TableTwo = () => {
               </p>
             </div>
           </div>
-          <div className="col-span-2 hidden items-center sm:flex">
-            <p className="text-sm text-black dark:text-white">
-              {product.category}
-            </p>
-          </div>
           <div className="col-span-1 flex items-center">
             <p className="text-sm text-black dark:text-white">
               ${product.price}
+            </p>
+          </div>
+          <div className="col-span-2 hidden items-center sm:flex">
+            <p className="text-sm text-black dark:text-white">
+              {product.stock}
             </p>
           </div>
           <div className="col-span-1 flex items-center">
@@ -103,4 +104,4 @@ const TableTwo = () => {
   );
 };
 
-export default TableTwo;
+export default Products;
