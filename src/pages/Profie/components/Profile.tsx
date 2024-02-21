@@ -102,7 +102,7 @@ const Profile = () => {
                     Email:
                   </label>
                   <input
-                    className="text-black rounded-md border focus:border-blue-700 outline-none px-4 py-1 w-[350px]"
+                    className="text-black rounded-md border focus:border-blue-700 outline-none px-4 py-1 w-[350px] pointer-events-none"
                     type="text"
                     id="name"
                     placeholder="Your Email"
@@ -113,7 +113,7 @@ const Profile = () => {
                     Phone:
                   </label>
                   <input
-                    className="text-black rounded-md border focus:border-blue-700 outline-none px-4 py-1 w-[350px]"
+                    className="text-black rounded-md border focus:border-blue-700 outline-none px-4 py-1 w-[350px] pointer-events-none"
                     type="text"
                     id="name"
                     placeholder="Your Phone"
