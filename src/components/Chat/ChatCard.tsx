@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Chat } from '../../types/chat';
-import UserOne from '../../images/user/user-01.png';
-import UserTwo from '../../images/user/user-02.png';
-import UserThree from '../../images/user/user-03.png';
-import UserFour from '../../images/user/user-04.png';
-import UserFive from '../../images/user/user-05.png';
+import UserOne from '/images/user/user-01.png';
+import UserTwo from '/images/user/user-02.png';
+import UserThree from '/images/user/user-03.png';
+import UserFour from '/images/user/user-04.png';
+import UserFive from '/images/user/user-05.png';
 
 const chatData: Chat[] = [
   {
@@ -75,7 +75,7 @@ const ChatCard = () => {
               <img src={chat.avatar} alt="User" />
               <span
                 className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white"
-                style={{backgroundColor: chat.color}}
+                style={{ backgroundColor: chat.color }}
               ></span>
             </div>
 

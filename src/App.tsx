@@ -7,7 +7,7 @@ import CompletedOrders from './pages/Report/components/CompletedOrders';
 import Orders from './pages/Report/components/Orders';
 import SignIn from './pages/Authentication/components/SignIn';
 import Manage from './pages/manageProducts/components/Manage';
-import Profile from './pages/Profile';
+import Profile from './pages/Profie/components/Profile';
 import OrdersPage from './pages/OrdersPage/components/OrdersPage';
 import Dashbooard from './pages/Dashboard/components/Dashbooard';
 
