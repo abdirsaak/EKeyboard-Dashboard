@@ -1,7 +1,6 @@
 import React from 'react';
 import CardDataStats from '../../../components/CardDataStats';
 import ChatCard from '../../../components/Chat/ChatCard';
-import TableTwo from '../../../components/Tables/TableTwo';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import Products from './Products';
 
