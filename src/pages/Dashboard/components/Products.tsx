@@ -78,12 +78,15 @@ const Products = () => {
         <h4 className="text-xl font-semibold text-black dark:text-white">
           Products
         </h4>
-        <form>
+        <form className="flex items-center gap-1">
           <input
             type="text"
             placeholder="Search..."
-            className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
+            className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500 w-full"
           />
+          <button className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90">
+            Search
+          </button>
         </form>
       </div>
 

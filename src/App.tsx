@@ -76,7 +76,7 @@ function App() {
         />
         {/* reports */}
         <Route
-          path="report/orders"
+          path="report/re-order"
           element={
             <>
               <PageTitle title="Orders" />
