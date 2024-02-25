@@ -9,14 +9,15 @@ const Orders: React.FC = () => {
       <div className="main">
         <div className="my-10 ">
           <input
-            className="border-[1px] border-red-50 w-[400px] h-[40px] rounded-md outline-none pl-4"
+            className="border-[1px] border-red-50 w-[200px] md:w-[400px] h-[40px] rounded-md outline-none pl-4"
             type="text"
             placeholder="searc orders"
           />
-
-         
         </div>
-        <table className="">
+
+       {/* ......... table */}
+       <div className="overflow-x-auto w-full">
+       <table className="">
           <thead>
             <tr className="border-b-[1px] border-gray-50">
               <th className="px-8 font-bold text-black">#</th>
@@ -34,7 +35,9 @@ const Orders: React.FC = () => {
               <td className="px-8 py-4">22.00</td>
               <td className="px-8 py-4">20</td>
               <td className="px-8 py-4">2/21/2024</td>
-              <td className="px-8 py-4 bg-red-500  text-white ">Pending</td>
+              <td className="px-8 py-4 ">
+                <span className="bg-yellow-500  text-white px-[20px] py-[10px] rounded-md">Pending</span>
+              </td>
             </tr>
             <tr className="my-20">
               <td className="px-8 py-4">1</td>
@@ -42,7 +45,7 @@ const Orders: React.FC = () => {
               <td className="px-8 py-4">22.00</td>
               <td className="px-8 py-4">20</td>
               <td className="px-8 py-4">2/21/2024</td>
-              <td className="px-8 py-4 bg-red-500  text-white ">Continue</td>
+              <td className="px-8 py-4  "><span className="bg-red-500  text-white px-[20px] py-[10px] rounded-md">Continue</span></td>
             </tr>
             <tr className="my-20">
               <td className="px-8 py-4">1</td>
@@ -50,10 +53,15 @@ const Orders: React.FC = () => {
               <td className="px-8 py-4">22.00</td>
               <td className="px-8 py-4">20</td>
               <td className="px-8 py-4">2/21/2024</td>
-              <td className="px-8  bg-green-500  text-white ">Pending</td>
+              <td className="px-8   ">
+              <span className="bg-yellow-500  text-white px-[20px] py-[10px] rounded-md">Pending</span>
+              </td>
             </tr>
           </tbody>
         </table>
+       </div>
+
+       {/* ...end table */}
       </div>
     </DefaultLayout>
   );
