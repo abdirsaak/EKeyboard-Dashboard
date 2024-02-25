@@ -17,7 +17,6 @@ const Orders: React.FC = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Orders" />
-<<<<<<< HEAD
       <div className="relative overflow-x-auto">
         <div className="mb-3">
           <form className="flex items-center gap-1">
@@ -82,70 +81,13 @@ const Orders: React.FC = () => {
                 <span className="bg-red-500 px-3 py-1 rounded-3xl text-white ">
                   Pending
                 </span>
-=======
-      <div className="main">
-        <div className="my-10 ">
-          <input
-            className="border-[1px] border-red-50 w-[200px] md:w-[400px] h-[40px] rounded-md outline-none pl-4"
-            type="text"
-            placeholder="searc orders"
-          />
-        </div>
-
-       {/* ......... table */}
-       <div className="overflow-x-auto w-full">
-       <table className="">
-          <thead>
-            <tr className="border-b-[1px] border-gray-50">
-              <th className="px-8 font-bold text-black">#</th>
-              <th className="px-8 font-bold text-black">Order Name</th>
-              <th className="px-8 font-bold text-black">Order price</th>
-              <th className="px-8 font-bold text-black">Order QTY</th>
-              <th className="px-8 font-bold text-black">order Date</th>
-              <th className="px-8 font-bold text-black">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="my-20">
-              <td className="px-8 py-4">1</td>
-              <td className="px-8 py-4">Bariis</td>
-              <td className="px-8 py-4">22.00</td>
-              <td className="px-8 py-4">20</td>
-              <td className="px-8 py-4">2/21/2024</td>
-              <td className="px-8 py-4 ">
-                <span className="bg-yellow-500  text-white px-[20px] py-[10px] rounded-md">Pending</span>
-              </td>
-            </tr>
-            <tr className="my-20">
-              <td className="px-8 py-4">1</td>
-              <td className="px-8 py-4">Bariis</td>
-              <td className="px-8 py-4">22.00</td>
-              <td className="px-8 py-4">20</td>
-              <td className="px-8 py-4">2/21/2024</td>
-              <td className="px-8 py-4  "><span className="bg-red-500  text-white px-[20px] py-[10px] rounded-md">Continue</span></td>
-            </tr>
-            <tr className="my-20">
-              <td className="px-8 py-4">1</td>
-              <td className="px-8 py-4">Bariis</td>
-              <td className="px-8 py-4">22.00</td>
-              <td className="px-8 py-4">20</td>
-              <td className="px-8 py-4">2/21/2024</td>
-              <td className="px-8   ">
-              <span className="bg-yellow-500  text-white px-[20px] py-[10px] rounded-md">Pending</span>
->>>>>>> c81d1d3e57572533d4523ca76f293ee92394f4a8
               </td>
             </tr>
           </tbody>
         </table>
-<<<<<<< HEAD
         <button className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 mt-3">
           Print
         </button>
-=======
-       </div>
-
-       {/* ...end table */}
->>>>>>> c81d1d3e57572533d4523ca76f293ee92394f4a8
       </div>
     </DefaultLayout>
   );
