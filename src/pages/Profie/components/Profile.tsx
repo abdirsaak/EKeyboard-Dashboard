@@ -1,10 +1,24 @@
+import { useEffect } from 'react';
 import Breadcrumb from '../../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import CoverOne from '/images/cover/cover-01.png';
 import userSix from '/images/user/user-06.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../../context/AuthContext';
 
 const Profile = () => {
+  const { logout } = useAuth();
+
+  const isLoggedIn = window.localStorage.getItem('isLoggedIn');
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      return navigate('/signin');
+    }
+  }, []);
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Profile" />
@@ -16,12 +30,11 @@ const Profile = () => {
             alt="profile cover"
             className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
           />
-          <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4">
-            <label
-              htmlFor="cover"
+          <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4 ">
+            <button
               className="flex cursor-pointer items-center justify-center gap-2 rounded bg-primary py-1 px-2 text-sm font-medium text-white hover:bg-opacity-90 xsm:px-4"
+              onClick={logout}
             >
-              <input type="file" name="cover" id="cover" className="sr-only" />
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -34,10 +47,8 @@ const Profile = () => {
                   <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" />
                 </svg>
               </span>
-              <button>
-                <span>LogOut</span>
-              </button>
-            </label>
+              <span>LogOut</span>
+            </button>
           </div>
         </div>
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">

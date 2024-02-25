@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Breadcrumb from '../../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../../layout/DefaultLayout';
+import { useNavigate } from 'react-router-dom';
 
 const Orders: React.FC = () => {
+  const isLoggedIn = window.localStorage.getItem('isLoggedIn');
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      return navigate('/signin');
+    }
+  }, []);
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Orders" />

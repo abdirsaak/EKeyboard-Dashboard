@@ -1,41 +1,38 @@
 import React, { useState } from 'react';
+import useAuth from '../../../context/AuthContext';
+
+type SigninDT = {
+  username: string;
+  password: string;
+};
 
 const SignIn: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [input, setInput] = useState<SigninDT>({
+    username: '',
+    password: '',
+  });
   const [errors, setErrors] = useState({ email: '', password: '' });
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  const { login, loading } = useAuth();
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+  const handleChange = (field: string, value: string) => {
+    setInput({ ...input, [field]: value });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Validation logic
-    // let formIsValid = true;
     const newErrors = { email: '', password: '' };
-
-    if (!email) {
+    if (!input.username) {
       newErrors.email = 'Email is required';
-      // formIsValid = false;
     }
-
-    if (!password) {
+    if (!input.password) {
       newErrors.password = 'Password is required';
-
-      // formIsValid = false;
     }
 
     setErrors(newErrors);
-    console.log('Form submitted');
+    if (!input.username && !input.password) return;
 
-    // if (formIsValid) {
-    //   // Form submission logic
-    // }
+    login(input);
   };
 
   return (
@@ -75,13 +72,13 @@ const SignIn: React.FC = () => {
                 </label>
                 <div className="relative">
                   <input
-                    type="email"
+                    type="text"
                     placeholder="Enter your email"
                     className={`w-full rounded-lg border ${
                       errors.email ? 'border-red-500' : 'border-stroke'
                     } bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary`}
-                    value={email}
-                    onChange={handleEmailChange}
+                    value={input.username}
+                    onChange={(e) => handleChange('username', e.target.value)}
                   />
                   {errors.email && (
                     <p className="text-red-500 text-sm">{errors.email}</p>
@@ -117,8 +114,8 @@ const SignIn: React.FC = () => {
                     className={`w-full rounded-lg border ${
                       errors.password ? 'border-red-500' : 'border-stroke'
                     } bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary`}
-                    value={password}
-                    onChange={handlePasswordChange}
+                    value={input.password}
+                    onChange={(e) => handleChange('password', e.target.value)}
                   />
                   {errors.password && (
                     <p className="text-red-500 text-sm">{errors.password}</p>
@@ -150,7 +147,7 @@ const SignIn: React.FC = () => {
               <div className="mb-5">
                 <input
                   type="submit"
-                  value="Sign In"
+                  value={loading ? '...' : 'Sign In'}
                   className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                 />
               </div>

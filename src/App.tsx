@@ -10,6 +10,7 @@ import Manage from './pages/manageProducts/components/Manage';
 import Profile from './pages/Profie/components/Profile';
 import OrdersPage from './pages/OrdersPage/components/OrdersPage';
 import Dashbooard from './pages/Dashboard/components/Dashbooard';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -27,6 +28,7 @@ function App() {
     <Loader />
   ) : (
     <>
+      <Toaster />
       <Routes>
         <Route
           path="/signin"

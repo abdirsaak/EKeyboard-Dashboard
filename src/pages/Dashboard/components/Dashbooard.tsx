@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CardDataStats from '../../../components/CardDataStats';
 import ChatCard from '../../../components/Chat/ChatCard';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import Products from './Products';
+import { useNavigate } from 'react-router-dom';
 
 const Dashbooard: React.FC = () => {
+  const isLoggedIn = window.localStorage.getItem('isLoggedIn');
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      return navigate('/signin');
+    }
+  }, []);
+
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
