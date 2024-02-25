@@ -18,6 +18,7 @@ const CompletedOrders: React.FC = () => {
     <DefaultLayout>
       <Breadcrumb pageName="Completed orders" />
       {/* ..... main table */}
+<<<<<<< HEAD
 
       <div className="mb-3">
         <form className="flex items-center gap-1">
@@ -50,6 +51,26 @@ const CompletedOrders: React.FC = () => {
               <th scope="col" className="px-6 py-3">
                 Status
               </th>
+=======
+      <div className="main">
+         <div className="my-10 flex flex-col md:flex-row md:justify-between">
+          
+         <button className=' border-[1px]  border-gray-100 w-[150px] md:w-[300px] mt-4 md:px-10 rounded-md h-[40px] md:hidden lg:hidden '>Print</button>
+         <input className='border-[1px] border-red-50 w-[200px] md:w-[400px] h-[40px] rounded-md outline-none pl-4 my-2' type="text" placeholder='searc orders'/>
+
+         <button className='border-[1px] hidden md:block lg:block border-gray-100 w-[200px] md:w-[300px] mt-4 md:px-10 rounded-md h-[40px]'>Print</button>
+         </div>
+       {/* ............ table  */}
+       <div className="overflow-x-auto">
+       <table className=''>
+          <thead>
+            <tr className='border-b-[1px] border-gray-50'>
+              <th className="px-8 font-bold text-black">#</th>
+              <th className="px-8 font-bold text-black">Order Name</th>
+              <th className="px-8 font-bold text-black">Order price</th>
+              <th className="px-8 font-bold text-black">Order QTY</th>
+              <th className="px-8 font-bold text-black">order Date</th>
+>>>>>>> c81d1d3e57572533d4523ca76f293ee92394f4a8
             </tr>
           </thead>
           <tbody>
@@ -87,6 +108,9 @@ const CompletedOrders: React.FC = () => {
             </tr>
           </tbody>
         </table>
+       </div>
+
+       {/* table end */}
       </div>
       <button className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 mt-3">
         Print
