@@ -6,13 +6,13 @@ import Products from './Products';
 import { useEffect } from 'react';
 
 const Manage = () => {
-  const isLoggedIn = window.localStorage.getItem('isLoggedIn');
+  const token = window.localStorage.getItem('token');
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      return navigate('/signin');
+    if (!token) {
+      return navigate('/signin', { replace: true });
     }
   }, []);
 

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAuth from '../../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 type SigninDT = {
   username: string;
@@ -14,6 +15,10 @@ const SignIn: React.FC = () => {
   const [errors, setErrors] = useState({ email: '', password: '' });
 
   const { login, loading } = useAuth();
+
+  const token = window.localStorage.getItem('token');
+
+  const navigate = useNavigate();
 
   const handleChange = (field: string, value: string) => {
     setInput({ ...input, [field]: value });
@@ -34,6 +39,12 @@ const SignIn: React.FC = () => {
 
     login(input);
   };
+
+  useEffect(() => {
+    if (token) {
+      return navigate('/', { replace: true });
+    }
+  }, []);
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

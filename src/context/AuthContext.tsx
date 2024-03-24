@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../util/data';
 
 type SigninDT = {
   username: string;
@@ -14,14 +15,12 @@ type AuthContextPropsDT = {
 type AuthContextMethodsDT = {
   login: (input: SigninDT) => void;
   logout: () => void;
-  isLoggedIn: boolean;
   loading: boolean;
 };
 
 const AuthContext = createContext<null | AuthContextMethodsDT>(null);
 
 export const AuthContextProvider = ({ children }: AuthContextPropsDT) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -29,7 +28,7 @@ export const AuthContextProvider = ({ children }: AuthContextPropsDT) => {
   const login = async (input: SigninDT) => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:9393/admin', {
+      const response = await fetch(`${API_BASE_URL}/admin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,14 +36,12 @@ export const AuthContextProvider = ({ children }: AuthContextPropsDT) => {
         body: JSON.stringify(input),
       });
       const data = await response.json();
-      if (data.error) {
-        toast.error(data.error);
-      } else {
-        toast.success(data.message);
-        setIsLoggedIn(true);
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('adminUserName', data.user?.adminUserName);
+      console.log(data);
+      if (!data.error) {
+        localStorage.setItem('token', JSON.stringify(data.token));
         navigate('/');
+      } else {
+        toast.error(data.error);
       }
     } catch (error: any) {
       console.log(error);
@@ -55,13 +52,11 @@ export const AuthContextProvider = ({ children }: AuthContextPropsDT) => {
   };
 
   const logout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('adminUserName');
+    localStorage.removeItem('token');
     navigate('/signin');
   };
 
-  const values = { login, logout, loading, isLoggedIn };
+  const values = { login, logout, loading };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
