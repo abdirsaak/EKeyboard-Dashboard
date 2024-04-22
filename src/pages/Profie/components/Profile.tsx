@@ -1,23 +1,38 @@
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../../layout/DefaultLayout';
+import { getMe, reset, signout } from '../../../store/auth/authSlice';
+import { AppDispatch, RootState } from '../../../store/store';
 import CoverOne from '/images/cover/cover-01.png';
-import userSix from '/images/user/user-06.png';
-import { Link, useNavigate } from 'react-router-dom';
-import useAuth from '../../../context/AuthContext';
 
 const Profile = () => {
-  const { logout } = useAuth();
-
-  const token = window.localStorage.getItem('token');
-
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
+  const { userData, isError, isLoading, message } = useSelector(
+    (state: RootState) => state.auth,
+  );
+
+  const onLogout = () => {
+    dispatch(signout());
+    dispatch(reset());
+    navigate('/');
+  };
+
   useEffect(() => {
-    if (!token) {
-      return navigate('/signin', { replace: true });
+    if (isError) {
+      toast(message);
     }
-  }, []);
+
+    dispatch(getMe());
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [navigate, isError, message, dispatch]);
 
   return (
     <DefaultLayout>
@@ -33,7 +48,7 @@ const Profile = () => {
           <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4 ">
             <button
               className="flex cursor-pointer items-center justify-center gap-2 rounded bg-primary py-1 px-2 text-sm font-medium text-white hover:bg-opacity-90 xsm:px-4"
-              onClick={logout}
+              onClick={onLogout}
             >
               <span>
                 <svg
@@ -54,10 +69,14 @@ const Profile = () => {
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
           <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
             <div className="relative drop-shadow-2">
-              <img src={userSix} alt="profile" />
+              <img
+                src={userData?.adminPhoto}
+                alt="profile"
+                className="rounded-full object-cover object-center bg-white w-full h-full"
+              />
               <label
                 htmlFor="profile"
-                className="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2"
+                className="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2 pointer-events-none"
               >
                 <svg
                   className="fill-current"
@@ -84,30 +103,33 @@ const Profile = () => {
                   type="file"
                   name="profile"
                   id="profile"
-                  className="sr-only"
+                  className="sr-only "
                 />
               </label>
             </div>
           </div>
           <div className="mt-4">
             <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-              Danish Heilium
+              {isLoading ? 'Loading' : userData?.adminFullName}
             </h3>
-            <p className="font-medium">Ui/Ux Designer</p>
+            <p className="font-medium">{userData?.adminUserName}</p>
 
             <div className="mx-auto max-w-180 my-8 flex justify-center">
               <form className="flex flex-col items-center gap-5 w-fit">
                 <div className="flex items-center">
                   <label
                     htmlFor="name"
-                    className="font-bold text-xl flex-[0.3] text-start"
+                    className="font-bold text-xl flex-[0.3] text-start "
                   >
                     Name:
                   </label>
                   <input
-                    className="text-black rounded-md border focus:border-blue-700 outline-none px-3 py-1 w-[350px] flex-1"
+                    className="text-black rounded-md border focus:border-blue-700 outline-none px-3 py-1 w-[350px] flex-1 pointer-events-none"
                     type="text"
                     id="name"
+                    defaultValue={
+                      isLoading ? 'Loading' : userData?.adminFullName
+                    }
                     placeholder="Your name"
                   />
                 </div>
@@ -122,6 +144,7 @@ const Profile = () => {
                     className="text-black rounded-md border focus:border-blue-700 outline-none px-4 py-1 w-[350px] pointer-events-none flex-1"
                     type="text"
                     id="name"
+                    defaultValue={isLoading ? 'Loading' : userData?.adminEmail}
                     placeholder="Your Email"
                   />
                 </div>
@@ -136,13 +159,14 @@ const Profile = () => {
                     className="text-black rounded-md border focus:border-blue-700 outline-none px-4 py-1 w-[350px] pointer-events-none flex-1"
                     type="text"
                     id="name"
+                    defaultValue={isLoading ? 'Loading' : userData?.adminPhone}
                     placeholder="Your Phone"
                   />
                 </div>
 
                 <Link
                   to="#"
-                  className="flex items-center justify-center rounded-md bg-primary py-1 w-full text-center font-medium text-white hover:bg-opacity-90"
+                  className="flex items-center justify-center rounded-md bg-primary py-1 w-full text-center font-medium text-white hover:bg-opacity-90 pointer-events-none"
                 >
                   Save Changes
                 </Link>

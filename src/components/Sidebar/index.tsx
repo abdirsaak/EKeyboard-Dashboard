@@ -176,9 +176,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Manage --> */}
               <li>
                 <NavLink
-                  to="/manage"
+                  to="/products"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('manage') && 'bg-graydark dark:bg-meta-4'
+                    pathname.includes('products') &&
+                    'bg-graydark dark:bg-meta-4'
                   }`}
                 >
                   <svg
@@ -194,7 +195,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       fill=""
                     />
                   </svg>
-                  Manage
+                  Products
                 </NavLink>
               </li>
               {/* <!-- Menu Item Manage --> */}
@@ -228,13 +229,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           </div>
 
           {/* <!-- Report Group --> */}
-          <div>
+          {/* <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
               REPORTS
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
-              {/* <!-- Menu Item Auth Pages --> */}
               <SidebarLinkGroup
                 activeCondition={
                   pathname === '/report' || pathname.includes('report')
@@ -305,7 +305,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           />
                         </svg>
                       </NavLink>
-                      {/* <!-- Dropdown Menu Start --> */}
                       <div
                         className={`translate transform overflow-hidden ${
                           !open && 'hidden'
@@ -336,14 +335,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           </li>
                         </ul>
                       </div>
-                      {/* <!-- Dropdown Menu End --> */}
                     </React.Fragment>
                   );
                 }}
               </SidebarLinkGroup>
-              {/* <!-- Menu Item Auth Pages --> */}
             </ul>
-          </div>
+          </div> */}
         </nav>
         {/* <!-- Sidebar Menu --> */}
       </div>

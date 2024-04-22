@@ -1,15 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import UserOne from '/images/user/user-01.png';
-import useAuth from '../../context/AuthContext';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { getMe, reset, signout } from '../../store/auth/authSlice';
+import { AppDispatch, RootState } from '../../store/store';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  const { userData, isError, isLoading, message } = useSelector(
+    (state: RootState) => state.auth,
+  );
+
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
-
-  const { logout } = useAuth();
 
   // close on click outside
   useEffect(() => {
@@ -37,6 +44,24 @@ const DropdownUser = () => {
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+  useEffect(() => {
+    if (isError) {
+      toast(message);
+    }
+
+    dispatch(getMe());
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [navigate, isError, message, dispatch]);
+
+  const onLogout = () => {
+    dispatch(signout());
+    dispatch(reset());
+    navigate('/');
+  };
+
   return (
     <div className="relative">
       <Link
@@ -47,13 +72,13 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {isLoading ? 'Loading...' : userData?.adminFullName}
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">{userData?.adminUserName}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
+          <img src={userData?.adminPhoto} alt="User" />
         </span>
 
         <svg
@@ -111,7 +136,7 @@ const DropdownUser = () => {
         </ul>
         <button
           className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-          onClick={logout}
+          onClick={onLogout}
         >
           <svg
             className="fill-current"

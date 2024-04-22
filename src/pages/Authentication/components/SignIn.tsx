@@ -1,50 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import useAuth from '../../../context/AuthContext';
+import React, { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
-type SigninDT = {
-  username: string;
-  password: string;
-};
+import { reset, signin } from '../../../store/auth/authSlice';
+import { AppDispatch, RootState } from '../../../store/store';
+import { FormFieldsDT } from '../../../types/types';
 
 const SignIn: React.FC = () => {
-  const [input, setInput] = useState<SigninDT>({
-    username: '',
-    password: '',
-  });
-  const [errors, setErrors] = useState({ email: '', password: '' });
-
-  const { login, loading } = useAuth();
-
-  const token = window.localStorage.getItem('token');
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<FormFieldsDT>();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleChange = (field: string, value: string) => {
-    setInput({ ...input, [field]: value });
-  };
+  const { token, isLoading, isError, isSuccess, message } = useSelector(
+    (state: RootState) => state.auth,
+  );
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const newErrors = { email: '', password: '' };
-    if (!input.username) {
-      newErrors.email = 'Email is required';
+  const onSubmit: SubmitHandler<FormFieldsDT> = async (data) => {
+    try {
+      dispatch(signin(data));
+    } catch (error) {
+      console.log(error);
     }
-    if (!input.password) {
-      newErrors.password = 'Password is required';
-    }
-
-    setErrors(newErrors);
-    if (!input.username && !input.password) return;
-
-    login(input);
   };
 
   useEffect(() => {
-    if (token) {
-      return navigate('/', { replace: true });
+    if (isError) {
+      toast(message);
     }
-  }, []);
+
+    if (isSuccess || token) {
+      navigate('/');
+    }
+
+    dispatch(reset());
+  }, [token, isError, isSuccess, message, navigate, dispatch]);
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -76,7 +71,7 @@ const SignIn: React.FC = () => {
               Sign In to E-Keyboard
             </h2>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
                   Email
@@ -86,14 +81,13 @@ const SignIn: React.FC = () => {
                     type="text"
                     placeholder="Enter your email"
                     className={`w-full rounded-lg border ${
-                      errors.email ? 'border-red-500' : 'border-stroke'
+                      errors.username ? 'border-red-500' : 'border-stroke'
                     } bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary`}
-                    value={input.username}
-                    onChange={(e) => handleChange('username', e.target.value)}
+                    {...register('username')}
                   />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm">{errors.email}</p>
-                  )}
+                  {/* {errors.username && (
+                    <p className="text-red-500 text-sm">{errors.username}</p>
+                  )} */}
                   <span className="absolute right-4 top-4">
                     <svg
                       className="fill-current"
@@ -125,12 +119,11 @@ const SignIn: React.FC = () => {
                     className={`w-full rounded-lg border ${
                       errors.password ? 'border-red-500' : 'border-stroke'
                     } bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary`}
-                    value={input.password}
-                    onChange={(e) => handleChange('password', e.target.value)}
+                    {...register('password')}
                   />
-                  {errors.password && (
+                  {/* {errors.password && (
                     <p className="text-red-500 text-sm">{errors.password}</p>
-                  )}
+                  )} */}
                   <span className="absolute right-4 top-4">
                     <svg
                       className="fill-current"
@@ -158,7 +151,8 @@ const SignIn: React.FC = () => {
               <div className="mb-5">
                 <input
                   type="submit"
-                  value={loading ? 'Loding...' : 'Sign In'}
+                  disabled={isLoading}
+                  value={isLoading ? 'Loading...' : 'Signin'}
                   className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                 />
               </div>

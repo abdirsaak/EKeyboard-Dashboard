@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
-import CompletedOrders from './pages/Report/components/CompletedOrders';
-import Orders from './pages/Report/components/Orders';
 import SignIn from './pages/Authentication/components/SignIn';
 import Manage from './pages/manageProducts/components/Manage';
 import Profile from './pages/Profie/components/Profile';
 import OrdersPage from './pages/OrdersPage/components/OrdersPage';
 import Dashbooard from './pages/Dashboard/components/Dashbooard';
 import { Toaster } from 'react-hot-toast';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,57 +40,38 @@ function App() {
         <Route
           index
           element={
-            <>
+            <ProtectedRoute>
               <PageTitle title="Dashboard" />
               <Dashbooard />
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
-          path="/manage"
+          path="/products"
           element={
-            <>
-              <PageTitle title="Manage" />
+            <ProtectedRoute>
+              <PageTitle title="Products" />
               <Manage />
-            </>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/profile"
           element={
-            <>
+            <ProtectedRoute>
               <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <Profile />
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/orders"
           element={
-            <>
+            <ProtectedRoute>
               <PageTitle title="Orders" />
               <OrdersPage />
-            </>
-          }
-        />
-        {/* reports */}
-        <Route
-          path="report/re-order"
-          element={
-            <>
-              <PageTitle title="Orders" />
-              <Orders />
-            </>
-          }
-        />
-        <Route
-          path="report/completedOrders"
-          element={
-            <>
-              <PageTitle title="Completed orders" />
-              <CompletedOrders />
-            </>
+            </ProtectedRoute>
           }
         />
       </Routes>

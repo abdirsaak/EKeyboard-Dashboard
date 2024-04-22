@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumb from '../../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../../layout/DefaultLayout';
-import { useNavigate } from 'react-router-dom';
+import { getOrders } from '../../../store/order/orderSlice';
+import { AppDispatch, RootState } from '../../../store/store';
 
 const OrdersPage: React.FC = () => {
-  const token = window.localStorage.getItem('token');
+  const dispatch = useDispatch<AppDispatch>();
 
-  const navigate = useNavigate();
+  const { orders, isLoading } = useSelector((state: RootState) => state.order);
 
   useEffect(() => {
-    if (!token) {
-      return navigate('/signin', { replace: true });
-    }
+    dispatch(getOrders());
   }, []);
 
   return (
@@ -35,16 +35,19 @@ const OrdersPage: React.FC = () => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Username
+                Order
               </th>
               <th scope="col" className="px-6 py-3">
-                Order name
+                Customer
               </th>
               <th scope="col" className="px-6 py-3">
-                Order qty
+                Date
               </th>
               <th scope="col" className="px-6 py-3">
-                Total price
+                QTY
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Price
               </th>
               <th scope="col" className="px-6 py-3">
                 Status
@@ -52,38 +55,51 @@ const OrdersPage: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-transparent dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">
-                <span className="bg-red-500 px-3 py-1 rounded-3xl text-white ">
-                  Pending
-                </span>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:dark:bg-transparent  dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Microsoft Surface Pro
-              </th>
-              <td className="px-6 py-4">White</td>
-              <td className="px-6 py-4">Laptop PC</td>
-              <td className="px-6 py-4">$1999</td>
-              <td className="px-6 py-4">
-                <span className="bg-green-500 px-3 py-1 rounded-3xl text-white ">
-                  Success
-                </span>
-              </td>
-            </tr>
+            {isLoading
+              ? 'Loading'
+              : orders?.map((order) => (
+                  <tr
+                    key={order._id}
+                    className="bg-white border-b dark:bg-transparent dark:border-gray-700"
+                  >
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      #444
+                    </th>
+                    <td className="px-6 py-4">
+                      <div className="col-span-3 flex items-center">
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                          <div className="h-10 w-10 rounded-full">
+                            <img
+                              src={order.user?.photo}
+                              alt="Product"
+                              className="rounded-full"
+                            />
+                          </div>
+                          <div>
+                            <p className="text-sm text-black dark:text-white">
+                              {order.user?.username}
+                            </p>
+                            <p className="text-sm text-black dark:text-white">
+                              {order.user?.email}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    {/* <td className="px-6 py-4">18 Apr 2024 8:56 PM</td> */}
+                    <td className="px-6 py-4">{order.createdAt}</td>
+                    <td className="px-6 py-4">{order.quantity}</td>
+                    <td className="px-6 py-4">$200</td>
+                    <td className="px-6 py-4">
+                      <span className="bg-red-500 px-3 py-1 rounded-3xl text-white ">
+                        {order.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>

@@ -1,19 +1,23 @@
+import 'flatpickr/dist/flatpickr.min.css';
+import 'jsvectormap/dist/css/jsvectormap.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import Modal from 'react-modal';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
-import './css/style.css';
 import './css/satoshi.css';
-import 'jsvectormap/dist/css/jsvectormap.css';
-import 'flatpickr/dist/flatpickr.min.css';
-import { AuthContextProvider } from './context/AuthContext';
+import './css/style.css';
+import { store } from './store/store';
+
+Modal.setAppElement('#root');
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Router>
-      <AuthContextProvider>
+      <Provider store={store}>
         <App />
-      </AuthContextProvider>
+      </Provider>
     </Router>
   </React.StrictMode>,
 );
